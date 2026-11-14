@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Photo Text">
+  <meta name="description" content="Capture photos, extract all readable text and copy everything at once.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <title>Photo Text</title>
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="brand"><div class="mark" aria-hidden="true">▣</div><div><h1>Photo Text</h1><p>Snap. Extract. Copy.</p></div></div>
+      <div class="count" id="count">0 pictures</div>
+    </header>
+
+    <section class="capture" aria-labelledby="capture-title">
+      <h2 id="capture-title">Capture text</h2>
+      <p>Take a picture of any label, document, or printed text. All recognized text will be added below, without filtering.</p>
+      <div class="actions">
+        <button class="primary" id="cameraBtn" type="button"><span aria-hidden="true">◉</span> Take picture</button>
+        <button class="secondary" id="libraryBtn" type="button">Choose photos</button>
+      </div>
+      <input type="file" id="cameraInput" accept="image/*" capture="environment" hidden>
+      <input type="file" id="libraryInput" accept="image/*" multiple hidden>
+      <div class="progress" id="progress" hidden role="status" aria-live="polite">
+        <div class="progress-head"><span id="statusText">Preparing OCR…</span><span id="percentText"></span></div>
+        <div class="track"><div class="fill" id="progressBar"></div></div>
+      </div>
+      <p class="hint" id="message" aria-live="polite">The first scan requires internet to load the OCR engine. Photos are processed on your device.</p>
+    </section>
+
+    <section class="output" aria-labelledby="output-title">
+      <div class="section-head"><div><h2 id="output-title">Collected text</h2><p>Editable — any changes are saved automatically.</p></div></div>
+      <textarea id="result" spellcheck="false" placeholder="Your extracted text will appear here…" aria-label="Collected OCR text"></textarea>
+      <div class="output-actions">
+        <button class="primary" id="copyBtn" type="button">Copy all text</button>
+        <button class="secondary" id="downloadBtn" type="button">Save .txt</button>
+      </div>
+      <div class="footer-actions"><span id="savedStatus">Saved locally</span><button class="danger" id="clearBtn" type="button">Clear all</button></div>
+    </section>
+    <footer>No uploads. No account. No QR scanning.</footer>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
